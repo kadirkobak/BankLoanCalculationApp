@@ -1,6 +1,7 @@
-﻿def kredi_hesapla(kredi_tutari, aylik_faiz_orani, vade):
-    # Aylık faiz oranı zaten girdi olarak alındığı için, onu doğrudan kullanabiliriz.
-    
+﻿def kredi_hesapla(kredi_tutari, faiz_orani, vade):
+    # Aylık faiz oranı, yıllık faiz oranını 12'ye bölerek hesaplanır
+    aylik_faiz_orani = (faiz_orani / 100) / 12
+
     # Aylık taksit hesaplama (Anüite formülü)
     if aylik_faiz_orani == 0:
         aylik_taksit = kredi_tutari / vade
@@ -14,10 +15,10 @@
 # Kullanıcıdan veri alma
 try:
     kredi_tutari = float(input("Kredi tutarını girin (TL): "))
-    aylik_faiz_orani = float(input("Aylık faiz oranını girin (örneğin: 0.02 için %2): "))
+    faiz_orani = float(input("Yıllık faiz oranını girin (%): "))
     vade = int(input("Vade süresini girin (ay): "))
 
-    aylik_taksit, toplam_geri_odeme = kredi_hesapla(kredi_tutari, aylik_faiz_orani, vade)
+    aylik_taksit, toplam_geri_odeme = kredi_hesapla(kredi_tutari, faiz_orani, vade)
 
     print(f"\nAylık taksit tutarı: {aylik_taksit:.2f} TL")
     print(f"Toplam geri ödeme: {toplam_geri_odeme:.2f} TL")

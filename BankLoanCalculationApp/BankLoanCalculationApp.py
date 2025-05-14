@@ -1,27 +1,49 @@
-﻿def kredi_hesapla(kredi_tutari, faiz_orani, vade):
-    # Aylık faiz oranı, yıllık faiz oranını 12'ye bölerek hesaplanır
-    aylik_faiz_orani = (faiz_orani / 100) / 12
+﻿import tkinter as tk
+from tkinter import messagebox
 
-    # Aylık taksit hesaplama (Anüite formülü)
-    if aylik_faiz_orani == 0:
-        aylik_taksit = kredi_tutari / vade
-    else:
-        aylik_taksit = kredi_tutari * (aylik_faiz_orani * (1 + aylik_faiz_orani) ** vade) / ((1 + aylik_faiz_orani) ** vade - 1)
+def calculate_fixed_interest_loan(loan_amount, monthly_interest_rate, term_months):
+    interest_amount = loan_amount * (monthly_interest_rate / 100) * term_months
+    total_payment = loan_amount + interest_amount
+    monthly_installment = total_payment / term_months
+    return monthly_installment, total_payment
 
-    toplam_geri_odeme = aylik_taksit * vade
+def calculate():
+    try:
+        loan_amount = float(entry_loan_amount.get())
+        monthly_interest_rate = float(entry_interest_rate.get())
+        term_months = int(entry_term.get())
 
-    return aylik_taksit, toplam_geri_odeme
+        monthly_payment, total_payment = calculate_fixed_interest_loan(loan_amount, monthly_interest_rate, term_months)
 
-# Kullanıcıdan veri alma
-try:
-    kredi_tutari = float(input("Kredi tutarını girin (TL): "))
-    faiz_orani = float(input("Yıllık faiz oranını girin (%): "))
-    vade = int(input("Vade süresini girin (ay): "))
+        result_label.config(text=f"Monthly Payment: {monthly_payment:.2f} TL\nTotal Repayment: {total_payment:.2f} TL")
 
-    aylik_taksit, toplam_geri_odeme = kredi_hesapla(kredi_tutari, faiz_orani, vade)
+    except ValueError:
+        messagebox.showerror("Input Error", "Please enter valid numeric values.")
 
-    print(f"\nAylık taksit tutarı: {aylik_taksit:.2f} TL")
-    print(f"Toplam geri ödeme: {toplam_geri_odeme:.2f} TL")
 
-except ValueError:
-    print("Lütfen geçerli bir sayı giriniz.")
+root = tk.Tk()
+root.title("Loan Calculator")
+root.geometry("400x350") 
+
+
+tk.Label(root, text="Loan Amount (TL):").pack(pady=(10, 0))
+entry_loan_amount = tk.Entry(root)
+entry_loan_amount.pack()
+
+tk.Label(root, text="Monthly Interest Rate (%):").pack(pady=(10, 0))
+entry_interest_rate = tk.Entry(root)
+entry_interest_rate.pack()
+
+tk.Label(root, text="Term (in months):").pack(pady=(10, 0))
+entry_term = tk.Entry(root)
+entry_term.pack()
+
+
+tk.Button(root, text="Calculate", command=calculate).pack(pady=15)
+
+
+result_label = tk.Label(root, text="Results will be shown here", font=("Arial", 12))
+result_label.pack(pady=10)
+
+
+root.mainloop()

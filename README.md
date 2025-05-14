@@ -1,4 +1,4 @@
-📘 Loan Calculator (Fixed Interest)
+﻿📘 Loan Calculator (Fixed Interest)
 A simple desktop application built with Python and Tkinter that calculates loan repayments using a fixed monthly interest rate. The user inputs the loan amount, interest rate, and repayment term in months, and the app displays the monthly installment and total repayment amount.
 
 🚀 Features
@@ -21,6 +21,7 @@ Tkinter is included with Python standard library, so no extra installation is ne
 This is a fixed interest model. It does not compound interest.
 
 For more accurate real-world results (e.g. from banks), consider using annuity-based calculations.
+
 
 
 

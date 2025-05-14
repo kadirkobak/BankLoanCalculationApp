@@ -5,22 +5,17 @@ A simple desktop application built with Python and Tkinter that calculates loan 
 User-friendly graphical interface (GUI)
 
 Calculates:
-
 Monthly payment
 Total repayment
 
 Accepts:
-
 Loan amount in TL
 Monthly interest rate in %
 Term in months
 
 🛠️ Requirements
 Python 3.x
-
 Tkinter is included with Python standard library, so no extra installation is needed.
-
-
 
 📌 Notes
 This is a fixed interest model. It does not compound interest.
